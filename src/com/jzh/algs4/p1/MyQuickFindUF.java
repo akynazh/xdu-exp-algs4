@@ -1,68 +1,58 @@
 package com.jzh.algs4.p1;
 
 public class MyQuickFindUF {
-    private int[] id; // site id
-    private int count; // site count
-    private boolean[] status; // site open or not
+    protected int[] parent; // 格点对应的祖先下标，初始化为自己的下标
+    protected int originCount;
+    protected int currentCount; // 当前格点数量
+    protected boolean[] status; // 格点是否open
 
-    // initial
     public MyQuickFindUF(int n) {
-        count = n;
-        id = new int[n];
-        status = new boolean[n];
-        for (int i = 0; i < n; i++) {
-            id[i] = i;
-            status[i] = false; // at the beginning, all full
+        // N * N 网格
+        originCount = n * n;
+        currentCount = originCount;
+        parent = new int[currentCount + 1]; // 从1开始
+        status = new boolean[currentCount + 1];
+        for (int i = 1; i <= currentCount; i++) {
+            parent[i] = i;
+            // status[i] = false; // 最开始时所有格点都关闭
         }
     }
 
-    // return the count of site
-    public int count() {
-        return count;
+    // 判断两个点是否有相同祖先
+    public boolean connected(int p, int q) {
+        return parent[p] == parent[q];
     }
 
-    // get site's id
-    public int find(int p) {
-        validate(p);
-        return id[p];
+    // 寻找祖先并逐步合并
+    public int findParent(int p) {
+        if (parent[p] != p) {
+            return parent[p] = findParent(parent[p]);
+        }
+        return p;
     }
 
-    // whether the site is opened
-    public boolean opened(int p) {
-        validate(p);
-        return status[p];
+    // 合并2个格点
+    public void union(int p, int q) {
+        int rootP = findParent(p);
+        int rootQ = findParent(q);
+        if (rootP == rootQ) return;
+        parent[rootP] = rootQ;
+        currentCount--;
     }
 
-    // open a site
+    public int getCurrentCount() {
+        return currentCount;
+    }
+
+    public int getOriginCount() {
+        return originCount;
+    }
+
     public void open(int p) {
-        validate(p);
         status[p] = true;
     }
 
-    // validate that p is a valid index
-    private void validate(int p) {
-        int n = id.length;
-        if (p < 0 || p >= n) {
-            throw new IllegalArgumentException("index " + p + " is not between 0 and " + (n-1));
-        }
-    }
-
-    // check if 2 sites are connected
-    public boolean connected(int p, int q) {
-        validate(p);
-        validate(q);
-        return id[p] == id[q];
-    }
-
-    // union 2 sites
-    public void union(int p, int q) {
-        validate(p);
-        validate(q);
-        int pID = id[p];
-        int qID = id[q];
-        if (pID == qID) return;
-        for (int i = 0; i < id.length; i++)
-            if (id[i] == pID) id[i] = qID;
-        count--;
+    public boolean isOpen(int p) {
+        return status[p];
     }
 }
