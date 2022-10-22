@@ -47,7 +47,7 @@ public class PercolationStats {
         double ansStddev = stddev(ansMean);
         double ansConfidenceLo = confidenceLo(ansMean, ansStddev);
         double ansConfidenceHigh = confidenceHi(ansMean, ansStddev);
-        try (PrintStream ps = new PrintStream(new FileOutputStream("res/p1/t1.txt", true))) {
+        try (PrintStream ps = new PrintStream(new FileOutputStream("res/p1/res.txt", true))) {
             System.setOut(new PrintStream(ps));
             if (weighted) {
                 System.out.println("WeightedQuickFindUF算法：");
@@ -97,7 +97,7 @@ public class PercolationStats {
             }
             int N = Integer.parseInt(args[0]);
             int T = Integer.parseInt(args[1]);
-            try (PrintStream ps = new PrintStream(new FileOutputStream("res/p1/t1.txt", true))) {
+            try (PrintStream ps = new PrintStream(new FileOutputStream("res/p1/res.txt", true))) {
                 System.setOut(new PrintStream(ps));
                 System.out.printf("########## N = %d, T = %d 时 ##########\n", N, T);
                 System.out.println("-------------------------------------------");
