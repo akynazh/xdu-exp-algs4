@@ -333,6 +333,8 @@ QuickSortWithD3P  ->     61ms     63ms     61ms     64ms     65ms     63ms     6
 
 快速排序和归并排序远远快于插入排序；
 
+快速排序稍快于归并排序；
+
 自顶向下和自底向上的插入排序差异不大，普通的快速排序和三路快速排序差异不大；
 
 当数据规模为1000000，而我定义的随机数范围是0到10000，此时重复元素较多，发现三路快速排序比普通的快速排序要快一点。
@@ -383,6 +385,8 @@ QuickSortWithD3P  ->      0ms      2ms      0ms      0ms      0ms      0ms      
 
 快速排序和归并排序远远快于插入排序；
 
+快速排序稍快于归并排序；
+
 自顶向下和自底向上的插入排序差异不大，普通的快速排序和三路快速排序差异不大；
 
 当数据规模为1000000，而我定义的随机数范围是0到10000，此时重复元素较多，发现三路快速排序比普通的快速排序要快一点。
@@ -406,3 +410,21 @@ RandomQuickSort   ->     86ms     80ms     82ms     82ms     84ms     84ms     8
 QuickSortWithD3P  ->     61ms     63ms     61ms     64ms     65ms     63ms     63ms     63ms     62ms     64ms      |    62ms
 -----------------------------------------
 ```
+
+5. In general, which sort did better? Give a hypothesis as to why the difference in performance exists.
+
+总体而言，快速排序最快。
+
+分析结果可知，当数据规模较小时，几个算法速度几乎没有差异，当数据规模逐渐增大，各个算法差异有了非常明显的差异：
+
+快速排序和归并排序远远快于插入排序；
+
+快速排序稍快于归并排序；
+
+自顶向下和自底向上的插入排序差异不大，普通的快速排序和三路快速排序差异不大；
+
+当数据规模为1000000，而我定义的随机数范围是0到10000，此时重复元素较多，发现三路快速排序比普通的快速排序要快一点。
+
+6. Are there results in your table that seem to be inconsistent? (e.g., If I get run times for a sort that look like this {1.3, 1.5, 1.6, 7.0, 1.2, 1.6, 1.4, 1.8, 2.0, 1.5] the 7.0 entry is not consistent with the rest). Why do you think this happened?
+
+有。这可以归因于多种情况，如CPU运行受限，数据排序较为特别（如大多已经排好或者倒序排列）。
