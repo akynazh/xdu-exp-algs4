@@ -45,7 +45,7 @@ public class DijkstraSP {
                 distToF[w] = distToG[w] + points[v].getDistance(points[w]);
                 edgeTo[w] = e;
 
-                if (pq.contains(w)) pq.changeKey(w, distToF[w]);
+                if (pq.contains(w)) pq.changeKey(w, distToF[w]); // 保证了队列中不存在重复键
                 else pq.insert(w, distToF[w]);
             }
             if (w == to) {
